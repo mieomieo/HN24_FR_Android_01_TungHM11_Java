@@ -1,0 +1,19 @@
+package assignments;
+
+import java.util.Scanner;
+
+public class Exercise1 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double score = sc.nextDouble();
+        if(score >= 5){
+
+            System.out.print("Pass");
+        }
+        else{
+            System.out.print("Failed");
+        }
+        sc.close();
+    }
+
+}
