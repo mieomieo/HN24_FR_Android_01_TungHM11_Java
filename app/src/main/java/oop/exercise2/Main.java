@@ -10,8 +10,8 @@ public class Main {
         };
 
         double totalPriceOfCustomer = 0;
-        for (Customer khachHang : customerList) {
-            double amountPayment = khachHang.calcPrice();
+        for (Customer customer : customerList) {
+            double amountPayment = customer.calcPrice();
             totalPriceOfCustomer += amountPayment;
             System.out.println("Số tiền phải trả của khách hàng: " + amountPayment);
         }

@@ -10,7 +10,7 @@ public  class Customer {
         this.quantity=quantity;
         this.price = price;
     }
-    public  double calcPrice(){
+    public double calcPrice(){
         return quantity*price;
     }
 }
