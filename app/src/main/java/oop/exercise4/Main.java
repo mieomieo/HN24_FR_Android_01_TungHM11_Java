@@ -28,11 +28,12 @@ public class Main {
                 String hoTen = scanner.nextLine();
                 System.out.print("Tuổi: ");
                 int tuoi = scanner.nextInt();
-                scanner.nextLine(); // Đọc bỏ dòng new line
+                scanner.nextLine();
                 System.out.print("Nghề nghiệp: ");
                 String ngheNghiep = scanner.nextLine();
                 System.out.print("Số CMND: ");
                 int soCMND = scanner.nextInt();
+                scanner.nextLine();
 
                 Nguoi nguoi = new Nguoi(hoTen, tuoi, ngheNghiep, soCMND);
                 hoGiaDinh.themNguoi(nguoi);

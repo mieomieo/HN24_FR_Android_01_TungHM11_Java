@@ -14,6 +14,8 @@ public class KhuPho {
     }
 
     public void hienThiThongTinKhuPho() {
+        System.out.println("khu phố có tổng số hộ dân:"+danhSachHoGiaDinh.size());
+        System.out.println("==================================================================================");
         System.out.println("Thông tin các hộ gia đình trong khu phố:");
         for (HoGiaDinh hoGiaDinh : danhSachHoGiaDinh) {
             hoGiaDinh.hienThiThongTin();
