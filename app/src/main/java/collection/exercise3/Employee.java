@@ -23,7 +23,8 @@ public  class Employee {
 
     public void displayInfo() {
         System.out.println("+-------+-------------------+------+------+--------------------------+---------------------------------+");
-        System.out.printf("| %-6d| %-17s| %-5s| %-4d | %-24s| %-31s|\n", id, name, gender , dob, phoneNumber, educationLevel);
+        System.out.printf("| %-6d| %-17s| %-5s| %-10s | %-24s| %-31s|\n", id, name, gender , dob, phoneNumber, educationLevel);
+
 
     }
 
