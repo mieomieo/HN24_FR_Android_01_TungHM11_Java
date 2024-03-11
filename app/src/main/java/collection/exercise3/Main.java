@@ -43,12 +43,7 @@ public class Main {
 
     private static void addEmployee(Scanner sc, Map<Integer, Employee> employees) {
         System.out.println("Enter employee details:");
-        String name;
-        String gender;
-        String dob;
-        String phoneNumber;
-        String educationLevel;
-
+        String name ,gender ,dob ,phoneNumber ,educationLevel ;
         do {
             System.out.print("Name: ");
             name = sc.nextLine().trim();
@@ -57,41 +52,40 @@ public class Main {
             }
         } while (name.isEmpty());
 
-        Validator.GenderValidator genderValidator = new Validator.GenderValidator();
         do {
             System.out.print("Gender (Male/Female): ");
             gender = sc.nextLine().trim();
-            if (!genderValidator.isValid(gender)) {
+            if (!Validator.isValidGender(gender)) {
                 System.out.println("Invalid gender. Gender must be 'Male' or 'Female'. Please try again.");
             }
-        } while (!genderValidator.isValid(gender));
+        } while (!Validator.isValidGender(gender));
 
-        Validator.DateOfBirthValidator dobValidator = new Validator.DateOfBirthValidator();
+
         do {
             System.out.print("Date of Birth (dd/mm/yyyy): ");
             dob = sc.nextLine().trim();
-            if (!dobValidator.isValid(dob)) {
+            if (!Validator.isValidDateOfBirth(dob)) {
                 System.out.println("Invalid date format. Date of Birth must be in dd/mm/yyyy format. Please try again.");
             }
-        } while (!dobValidator.isValid(dob));
+        } while (!Validator.isValidDateOfBirth(dob));
 
-        Validator.PhoneNumberValidator phoneNumberValidator = new Validator.PhoneNumberValidator();
+
         do {
             System.out.print("Phone Number: ");
             phoneNumber = sc.nextLine().trim();
-            if (!phoneNumberValidator.isValid(phoneNumber)) {
+            if (!Validator.isValidPhoneNumber(phoneNumber)) {
                 System.out.println("Invalid phone number. Phone number must be 10 or 11 digits. Please try again.");
             }
-        } while (!phoneNumberValidator.isValid(phoneNumber));
+        } while (!Validator.isValidPhoneNumber(phoneNumber));
 
-        Validator.EducationLevelValidator educationLevelValidator = new Validator.EducationLevelValidator();
+
         do {
             System.out.print("Education Level (Intermediate/College/University): ");
             educationLevel = sc.nextLine().trim();
-            if (!educationLevelValidator.isValid(educationLevel)) {
+            if (!Validator.isValidEducationLevel(educationLevel)) {
                 System.out.println("Invalid education level. Education level must be 'Intermediate', 'College', or 'University'. Please try again.");
             }
-        } while (!educationLevelValidator.isValid(educationLevel));
+        } while (!Validator.isValidEducationLevel(educationLevel));
 
         Employee employee = new Employee(name, gender, dob, phoneNumber, educationLevel);
         employees.put(employee.getId(), employee);
@@ -103,14 +97,14 @@ public class Main {
             return;
         }
         System.out.println("Employee information:");
-        System.out.println("+-------+-------------------+------+------+--------------------------+---------------------------------+");
-        System.out.printf("| %-6s| %-17s| %-5s| %-4s | %-24s| %-31s|\n", "ID", "Name", "Gender", "Date of Birth", "Phone Number", "Education Level");
+        System.out.println("+-------+------------------+--------+----------------+----------------+----------------------+");
+        System.out.printf("| %-6s| %-17s| %-7s| %-15s | %-15s| %-20s|\n", "ID", "Name", "Gender", "Date of Birth", "Phone Number", "Education Level");
         for (Employee employee : employees.values()) {
             employee.displayInfo();
         }
-        System.out.println("+-------+-------------------+------+------+--------------------------+---------------------------------+");
-
+        System.out.println("+-------+------------------+--------+----------------+----------------+----------------------+");
     }
+
     private static void updateEmployee(Scanner sc, Map<Integer, Employee> employees) {
             System.out.print("Enter employee ID to update: ");
             int id = Integer.parseInt(sc.nextLine().trim());
@@ -119,18 +113,51 @@ public class Main {
                 System.out.println("Employee not found.");
                 return;
             }
-            System.out.println("Enter new employee details:");
-            System.out.print("Name: ");
-            String name = sc.nextLine().trim();
-            System.out.print("Gender (Male/Female): ");
-            String gender = sc.nextLine().trim();
-            System.out.print("Date of Birth (dd/mm/yyyy): ");
-            String dob = sc.nextLine().trim();
-            System.out.print("Phone Number: ");
-            String phoneNumber = sc.nextLine().trim();
-            System.out.print("Education Level (Intermediate/College/University): ");
-            String educationLevel = sc.nextLine().trim();
 
+
+        String name ,gender ,dob ,phoneNumber ,educationLevel ;
+        do {
+            System.out.print("Name: ");
+            name = sc.nextLine().trim();
+            if (name.isEmpty()) {
+                System.out.println("Name cannot be empty. Please try again.");
+            }
+        } while (name.isEmpty());
+
+        do {
+            System.out.print("Gender (Male/Female): ");
+            gender = sc.nextLine().trim();
+            if (!Validator.isValidGender(gender)) {
+                System.out.println("Invalid gender. Gender must be 'Male' or 'Female'. Please try again.");
+            }
+        } while (!Validator.isValidGender(gender));
+
+
+        do {
+            System.out.print("Date of Birth (dd/mm/yyyy): ");
+            dob = sc.nextLine().trim();
+            if (!Validator.isValidDateOfBirth(dob)) {
+                System.out.println("Invalid date format. Date of Birth must be in dd/mm/yyyy format. Please try again.");
+            }
+        } while (!Validator.isValidDateOfBirth(dob));
+
+
+        do {
+            System.out.print("Phone Number: ");
+            phoneNumber = sc.nextLine().trim();
+            if (!Validator.isValidPhoneNumber(phoneNumber)) {
+                System.out.println("Invalid phone number. Phone number must be 10 or 11 digits. Please try again.");
+            }
+        } while (!Validator.isValidPhoneNumber(phoneNumber));
+
+
+        do {
+            System.out.print("Education Level (Intermediate/College/University): ");
+            educationLevel = sc.nextLine().trim();
+            if (!Validator.isValidEducationLevel(educationLevel)) {
+                System.out.println("Invalid education level. Education level must be 'Intermediate', 'College', or 'University'. Please try again.");
+            }
+        } while (!Validator.isValidEducationLevel(educationLevel));
             employee.updateInfo(name, gender, dob, phoneNumber, educationLevel);
             System.out.println("Employee information updated successfully.");
         }

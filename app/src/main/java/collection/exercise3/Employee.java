@@ -22,12 +22,9 @@ public  class Employee {
     }
 
     public void displayInfo() {
-        System.out.println("+-------+-------------------+------+------+--------------------------+---------------------------------+");
-        System.out.printf("| %-6d| %-17s| %-5s| %-10s | %-24s| %-31s|\n", id, name, gender , dob, phoneNumber, educationLevel);
-
-
+        System.out.println("+-------+------------------+--------+----------------+----------------+----------------------+");
+        System.out.printf("| %-6d| %-17s| %-7s| %-15s | %-15s| %-20s|\n", id, name, gender , dob, phoneNumber, educationLevel);
     }
-
     public void updateInfo(String name, String gender, String dob, String phoneNumber, String educationLevel) {
         this.name = name;
         this.gender = gender;
