@@ -18,6 +18,7 @@ public class Exercise1 {
             while ((line = reader.readLine()) != null) {
                 String[] words = line.split("\\s+");
                 for (String word : words) {
+                    System.out.println(word);
                     word = word.toLowerCase();
                     uniqueWords.add(word);
                 }
