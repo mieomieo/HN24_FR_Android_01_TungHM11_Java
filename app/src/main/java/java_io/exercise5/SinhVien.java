@@ -5,7 +5,7 @@ public class SinhVien {
     private int tuoi;
     private double diemTB;
 
-    public SinhVien(String maSV, String hoTen, String diaChi, int tuoi, double diemTB) {
+    public SinhVien(String maSV, String hoTen,int tuoi,  String diaChi, double diemTB) {
         this.maSV = maSV;
         this.hoTen = hoTen;
         this.diaChi = diaChi;

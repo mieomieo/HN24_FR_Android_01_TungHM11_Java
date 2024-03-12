@@ -52,7 +52,7 @@ public class Exercise5 {
                     hienThiThongTinTatCaSinhVien();
                     break;
                 case "0":
-                    luuDanhSachSinhVienVaoFile();
+                    luuFileVaThoat();
                     System.out.println("Thoát chương trình");
                     return;
                 default:
@@ -67,20 +67,24 @@ public class Exercise5 {
             String dong;
             while ((dong = reader.readLine()) != null) {
                 String[] thongTin = dong.split("\\s+");
-                String maSV = thongTin[0];
-                String hoTen = thongTin[1];
-                int tuoi = Integer.parseInt(thongTin[2]);
-                String diaChi = thongTin[3];
-                double diemTB = Double.parseDouble(thongTin[4]);
-                SinhVien sinhVien = new SinhVien(maSV, hoTen, diaChi, tuoi, diemTB);
-                danhSachSinhVien.add(sinhVien);
+                try {
+                    String maSV = thongTin[0];
+                    String hoTen = thongTin[1];
+                    String diaChi = thongTin[3];
+                    int tuoi = Integer.parseInt(thongTin[2]);
+                    double diemTB = Double.parseDouble(thongTin[4]);
+                    SinhVien sinhVien = new SinhVien(maSV, hoTen, tuoi, diaChi, diemTB);
+                    danhSachSinhVien.add(sinhVien);
+                } catch (NumberFormatException e) {
+                    System.err.println("Dòng không đúng định dạng: " + dong);
+                }
             }
         } catch (IOException e) {
             System.err.println("Đã xảy ra lỗi khi đọc từ tệp: " + e.getMessage());
         }
     }
 
-    private static void luuDanhSachSinhVienVaoFile() {
+    private static void luuFileVaThoat() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(PATH))) {
             for (SinhVien sinhVien : danhSachSinhVien) {
                 writer.write(sinhVien.getMaSV() + " " + sinhVien.getHoTen() + " " + sinhVien.getDiaChi() + " " + sinhVien.getTuoi() + " " + sinhVien.getDiemTB() + "\n");
@@ -102,11 +106,11 @@ public class Exercise5 {
         System.out.print("Địa chỉ: ");
         String diaChi = scanner.nextLine();
         System.out.print("Điểm trung bình: ");
-        float diemTB = Float.parseFloat(scanner.nextLine());
-        SinhVien sinhVienMoi = new SinhVien(maSV, hoTen, diaChi, tuoi , diemTB);
+        double diemTB = Float.parseFloat(scanner.nextLine());
+        SinhVien sinhVienMoi = new SinhVien(maSV, hoTen, tuoi, diaChi, diemTB);
         danhSachSinhVien.add(sinhVienMoi);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(PATH, true))) {
-            writer.write(maSV + " " + hoTen + " " + diaChi + " " + tuoi + " " + diemTB + "\n");
+            writer.write(maSV + " " + hoTen + " " + tuoi + " " + diaChi + " " + diemTB + "\n");
             System.out.println("Sinh viên đã được thêm vào danh sách.");
         } catch (IOException e) {
             System.err.println("Đã xảy ra lỗi khi ghi vào tệp: " + e.getMessage());
@@ -159,12 +163,12 @@ public class Exercise5 {
             System.out.println("Không có dữ liệu");
             return;
         }
-        System.out.println("---------------------------------------------------------------------------------");
-        System.out.printf("| %-10s | %-20s | %-20s | %-5s | %-10s |\n", "Mã SV", "Họ và tên", "Địa chỉ", "Tuổi", "Điểm TB");
-        System.out.println("---------------------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.printf("| %-10s | %-20s | %-5s | %-20s | %-10s |\n", "Mã SV", "Họ và tên", "Tuổi", "Địa chỉ", "Điểm TB");
+        System.out.println("-----------------------------------------------------------------------------------");
         for (SinhVien sinhVien : danhSachSinhVien) {
-            System.out.printf("| %-10s | %-20s | %-20s | %-5s | %-10s |\n", sinhVien.getMaSV(), sinhVien.getHoTen(), sinhVien.getDiaChi(), sinhVien.getTuoi(), sinhVien.getDiemTB());
+            System.out.printf("| %-10s | %-20s | %-5s | %-20s | %-10s |\n", sinhVien.getMaSV(), sinhVien.getHoTen(), sinhVien.getTuoi(), sinhVien.getDiaChi(), sinhVien.getDiemTB());
         }
-        System.out.println("---------------------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------");
     }
 }
