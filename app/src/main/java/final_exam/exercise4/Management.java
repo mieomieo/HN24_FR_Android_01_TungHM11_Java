@@ -1,13 +1,14 @@
 package final_exam.exercise4;
-import android.service.autofill.SaveCallback;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Management {
     private ArrayList<Contact> contactList;
+
     public Management() {
         contactList = new ArrayList<>();
     }
@@ -22,7 +23,7 @@ public class Management {
     }
 
 
-    public void addContact(Scanner sc,Management contactManagement) {
+    public void addContact(Scanner sc, Management contactManagement) {
         System.out.print("Enter name: ");
         String name;
         do {
@@ -49,8 +50,8 @@ public class Management {
                 phoneNumberCheck = true;
             }
         } while (!phoneNumberCheck);
-            contactList.add(new Contact(name, phoneNumber));
-            System.out.println("Contact added successfully.");
+        contactList.add(new Contact(name, phoneNumber));
+        System.out.println("Contact added successfully.");
     }
 
     public void editContact(String oldPhoneNumber, String newPhoneNumber) {
@@ -81,8 +82,9 @@ public class Management {
 
 
     public void sortContacts() {
-        contactList.sort((c1, c2) -> c1.getName().compareTo(c2.getName()));
+        contactList.sort(Comparator.comparing(Contact::getName));
     }
+
     public void searchContact(String name) {
 
         boolean checkSearch = false;
@@ -91,18 +93,18 @@ public class Management {
         System.out.println("|      Name       |  Phone Number   |");
         System.out.println("+-----------------+-----------------+");
         for (Contact contact : contactList) {
-//            String nameFormat = contact.getName().replaceAll("\\s+", "").trim().toLowerCase();
-//            String nameFormat =removeDiacritics(contact.getName().toLowerCase());
-            if (contact.getName().toLowerCase().contains(name.toLowerCase())) {
+            String nameFormat = removeDiacritics(contact.getName().toLowerCase());
+            if (nameFormat.contains(removeDiacritics(name.toLowerCase()))) {
                 System.out.printf("| %-15s | %-15s |\n", contact.getName(), contact.getPhoneNumber());
-                checkSearch=true;
+                checkSearch = true;
             }
         }
-        if(!checkSearch){
+        if (!checkSearch) {
             System.out.println("|           NO DATA MATCH           |");
             System.out.println("+-----------------+-----------------+");
         }
     }
+
     public void display() {
         if (contactList.isEmpty()) {
             System.out.println("Contact list is empty.");
@@ -113,9 +115,15 @@ public class Management {
             System.out.println("+----+-----------------+-----------------+");
             for (int i = 0; i < contactList.size(); i++) {
                 Contact contact = contactList.get(i);
-                System.out.printf("| %-2d | %-15s | %-15s |\n", i+1, contact.getName(), contact.getPhoneNumber());
+                System.out.printf("| %-2d | %-15s | %-15s |\n", i + 1, contact.getName(), contact.getPhoneNumber());
                 System.out.println("+----+-----------------+-----------------+");
             }
         }
+    }
+
+    private String removeDiacritics(String str) {
+        String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(nfdNormalizedString).replaceAll("");
     }
 }
