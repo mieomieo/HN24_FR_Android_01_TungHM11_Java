@@ -1,4 +1,4 @@
-package final_java.exercise1;
+package final_exam;
 
 import java.util.Scanner;
 
