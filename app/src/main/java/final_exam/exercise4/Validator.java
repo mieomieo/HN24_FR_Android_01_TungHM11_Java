@@ -7,5 +7,4 @@ public interface Validator {
         return Pattern.matches("\\d{10,11}", input);
     }
 
-
 }

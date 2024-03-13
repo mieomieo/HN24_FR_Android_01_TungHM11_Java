@@ -2,7 +2,6 @@ package final_exam.exercise4;
 
 import java.util.Scanner;
 
-import collection.exercise3.Validator;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,17 +13,25 @@ public class Main {
             System.out.println("2. Add a contact");
             System.out.println("3. Edit a contact");
             System.out.println("4. Search for a contact");
+            System.out.println("5. Sort contacts");
+            System.out.println("6. Show contacts");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             String choice = sc.nextLine();
-
             switch (choice) {
                 case "0":
                     System.out.println("Exiting program.");
                     return;
                 case "1":
                     System.out.print("Enter phone number to check: ");
-                    String phoneNumberToCheck = sc.nextLine();
+                    String phoneNumberToCheck;
+                    do {
+                        System.out.print("Phone Number: ");
+                        phoneNumberToCheck = sc.nextLine().trim();
+                        if (!Validator.isValidPhoneNumber(phoneNumberToCheck)) {
+                            System.out.println("Invalid phone number. Phone number must be 10 or 11 digits. Please try again.");
+                        }
+                    } while (!Validator.isValidPhoneNumber(phoneNumberToCheck));
                     boolean exists = contactManagement.isPhoneNumberExists(phoneNumberToCheck);
                     if (exists) {
                         System.out.println("Phone number exists.");
@@ -33,26 +40,7 @@ public class Main {
                     }
                     break;
                 case "2":
-                    System.out.print("Enter name: ");
-                    String name;
-                    do {
-                        System.out.print("Name: ");
-                        name = sc.nextLine().trim();
-                        if (name.isEmpty()) {
-                            System.out.println("Name cannot be empty. Please try again.");
-                        }
-                    } while (name.isEmpty());
-
-                    System.out.print("Enter phone number: ");
-                    String phoneNumber;
-                    do {
-                        System.out.print("Phone Number: ");
-                        phoneNumber = sc.nextLine().trim();
-                        if (!Validator.isValidPhoneNumber(phoneNumber)) {
-                            System.out.println("Invalid phone number. Phone number must be 10 or 11 digits. Please try again.");
-                        }
-                    } while (!Validator.isValidPhoneNumber(phoneNumber));
-                    contactManagement.addContact(name, phoneNumber);
+                    contactManagement.addContact(sc,contactManagement);
                     break;
                 case "3":
                     System.out.print("Enter old phone number: ");
@@ -65,6 +53,15 @@ public class Main {
                     System.out.print("Enter name to search: ");
                     String nameToSearch = sc.nextLine();
                     contactManagement.searchContact(nameToSearch);
+                    break;
+                case "5":
+                    contactManagement.sortContacts();
+                    System.out.println("Contacts sorted successfully!");
+                    contactManagement.display();
+                    break;
+                case "6":
+                    System.out.println("Display contacts:");
+                    contactManagement.display();
                     break;
                 default:
                     System.out.println("Invalid choice. Please enter again.");
